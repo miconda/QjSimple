@@ -4,7 +4,9 @@ TARGET = QjSimple
 QT += core \
     gui \
     xml \
-    network
+    network \
+    widgets \
+    http
 HEADERS += buddy.h \
     PjCallback.h \
     accountdialog.h \
@@ -27,17 +29,17 @@ FORMS += accountdialog.ui \
     qjsimple.ui
 RESOURCES += icons.qrc
 win32-g++:RC_FILE = appicon.rc
-INCLUDEPATH += ../pjproject-1.8.10/pjlib/include \
-    ../pjproject-1.8.10/pjlib-util/include \
-    ../pjproject-1.8.10/pjnath/include \
-    ../pjproject-1.8.10/pjmedia/include \
-    ../pjproject-1.8.10/pjsip/include
-LIBS += -L../pjproject-1.8.10/pjlib/lib \
-    -L../pjproject-1.8.10/pjlib-util/lib \
-    -L../pjproject-1.8.10/pjnath/lib \
-    -L../pjproject-1.8.10/pjmedia/lib \
-    -L../pjproject-1.8.10/pjsip/lib \
-    -L../pjproject-1.8.10/third_party/lib
+INCLUDEPATH += ../pjproject/pjlib/include \
+    ../pjproject/pjlib-util/include \
+    ../pjproject/pjnath/include \
+    ../pjproject/pjmedia/include \
+    ../pjproject/pjsip/include
+LIBS += -L../pjproject/pjlib/lib \
+    -L../pjproject/pjlib-util/lib \
+    -L../pjproject/pjnath/lib \
+    -L../pjproject/pjmedia/lib \
+    -L../pjproject/pjsip/lib \
+    -L../pjproject/third_party/lib
 
 # INCLUDEPATH += ../pjproject-1.5.5/pjlib/include \
 # ../pjproject-1.5.5/pjlib-util/include \
@@ -135,28 +137,32 @@ linux-g++-64:LIBS += -lpjsua-x86_64-unknown-linux-gnu \
     -lssl \
     -lasound \
     -luuid
-macx-g++:LIBS += -lpjsua-i386-apple-darwin9.7.1 \
-    -lpjsip-ua-i386-apple-darwin9.7.1 \
-    -lpjsip-simple-i386-apple-darwin9.7.1 \
-    -lpjsip-i386-apple-darwin9.7.1 \
-    -lpjmedia-i386-apple-darwin9.7.1 \
-    -lpjmedia-i386-apple-darwin9.7.1 \
-    -lpjmedia-codec-i386-apple-darwin9.7.1 \
-    -lpjmedia-audiodev-i386-apple-darwin9.7.1 \
-    -lpjnath-i386-apple-darwin9.7.1 \
-    -lpjlib-util-i386-apple-darwin9.7.1 \
-    -lpj-i386-apple-darwin9.7.1 \
-    -lportaudio-i386-apple-darwin9.7.1 \
-    -lgsmcodec-i386-apple-darwin9.7.1 \
-    -lilbccodec-i386-apple-darwin9.7.1 \
-    -lspeex-i386-apple-darwin9.7.1 \
-    -lresample-i386-apple-darwin9.7.1 \
-    -lmilenage-i386-apple-darwin9.7.1 \
-    -lsrtp-i386-apple-darwin9.7.1 \
+macx:LIBS += -lpjsua-i386-apple-darwin14.0.0 \
+    -lpjsip-ua-i386-apple-darwin14.0.0 \
+    -lpjsip-simple-i386-apple-darwin14.0.0 \
+    -lpjsip-i386-apple-darwin14.0.0 \
+    -lpjmedia-i386-apple-darwin14.0.0 \
+    -lpjmedia-i386-apple-darwin14.0.0 \
+    -lpjmedia-codec-i386-apple-darwin14.0.0 \
+    -lpjmedia-audiodev-i386-apple-darwin14.0.0 \
+    -lpjnath-i386-apple-darwin14.0.0 \
+    -lpjlib-util-i386-apple-darwin14.0.0 \
+    -lpj-i386-apple-darwin14.0.0 \
+    -lportaudio-i386-apple-darwin14.0.0 \
+    -lgsmcodec-i386-apple-darwin14.0.0 \
+    -lilbccodec-i386-apple-darwin14.0.0 \
+    -lspeex-i386-apple-darwin14.0.0 \
+    -lresample-i386-apple-darwin14.0.0 \
+    -lmilenage-i386-apple-darwin14.0.0 \
+    -lsrtp-i386-apple-darwin14.0.0 \
     -lm \
     -lpthread \
     -lssl \
     -lcrypto \
+    -framework \
+    CoreFoundation \
+    -framework \
+    CoreServices \
     -framework \
     CoreAudio \
     -framework \
