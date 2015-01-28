@@ -7,7 +7,7 @@
 #include <QList>
 #include <QMutex>
 #include <QRegExp>
-#include <QtNetwork/QHttp>
+#include <QHttp>
 #include <QWaitCondition>
 
 #ifdef WIN32
@@ -1053,7 +1053,7 @@ int QjSimple::initializePjSip() {
 	appLog("cfg.nameserver_count=" + QString::number(cfg.nameserver_count));
 	for (count=0;count<cfg.nameserver_count;count++) {
 		appLog("cfg.nameserver[" + QString::number(count) + "]=" 
-				+ QString::fromAscii(cfg.nameserver[count].ptr,cfg.nameserver[count].slen));
+                + QString::fromLatin1(cfg.nameserver[count].ptr,cfg.nameserver[count].slen));
 	}
 
 	/* initialize pjsua callbacks */
@@ -1370,7 +1370,7 @@ void QjSimple::subscribeBuddy(Buddy *buddy) {
 	if (status != PJ_SUCCESS) {
 		error("Error adding buddy", status);
 	}
-	buddy->buddy_id_valid = TRUE;
+    buddy->buddy_id_valid = true;
 }
 
 void QjSimple::unsubscribeBuddy(Buddy *buddy) {
@@ -1396,9 +1396,9 @@ void QjSimple::buddy_state(pjsua_buddy_id buddy_id) {
 		}
 		/* find buddy object */
 		Buddy *buddy;
-		QString uri = QString::fromAscii(info.uri.ptr,info.uri.slen);
-		QString status_text = QString::fromAscii(info.status_text.ptr,info.status_text.slen);
-		QString rpid_status_text = QString::fromAscii(info.rpid.note.ptr,info.rpid.note.slen);
+        QString uri = QString::fromLatin1(info.uri.ptr,info.uri.slen);
+        QString status_text = QString::fromLatin1(info.status_text.ptr,info.status_text.slen);
+        QString rpid_status_text = QString::fromLatin1(info.rpid.note.ptr,info.rpid.note.slen);
 		buddy = getBuddy(uri);
 		if (!buddy) {
 			appLog("buddy URI " + uri + " not found!");
@@ -1455,7 +1455,7 @@ void QjSimple::reg_state_slot(int acc_id_cb) {
 			return;
 		}
 		appLog("Info: on_reg_state_slot: status=" + QString::number(info.status));
-		appLog("Info: on_reg_state_slot: statustext=" + QString::fromAscii(info.status_text.ptr,info.status_text.slen));
+        appLog("Info: on_reg_state_slot: statustext=" + QString::fromLatin1(info.status_text.ptr,info.status_text.slen));
 		if (info.status == 200) {
 			ui.statusBox->setCheckState(Qt::Checked);
 		} else {

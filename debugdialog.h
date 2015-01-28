@@ -1,7 +1,7 @@
 #ifndef DEBUGDIALOG_H
 #define DEBUGDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include "ui_debugdialog.h"
 #include "qjsimple.h"
 

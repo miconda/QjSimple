@@ -1,7 +1,7 @@
 #ifndef IMWIDGET_H
 #define IMWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_imwidget.h"
 
 class ImWidget : public QWidget

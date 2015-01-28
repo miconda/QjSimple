@@ -1,7 +1,7 @@
 #ifndef ADDBUDDYDIALOG_H
 #define ADDBUDDYDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include "ui_addbuddydialog.h"
 
 class AddBuddyDialog : public QDialog

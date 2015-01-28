@@ -1,9 +1,9 @@
 #ifndef QJSIMPLE_H
 #define QJSIMPLE_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QList>
-#include <QtNetwork/QHttp>
+#include <QHttp>
 
 #include "ui_qjsimple.h"
 

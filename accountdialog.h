@@ -1,7 +1,7 @@
 #ifndef ACCOUNTDIALOG_H
 #define ACCOUNTDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include "ui_accountdialog.h"
 
 class AccountDialog : public QDialog {

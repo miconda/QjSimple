@@ -45,8 +45,8 @@ void PjCallback::on_pager(pjsua_call_id call_id, const pj_str_t *from,
 	PJ_UNUSED_ARG(contact);
 	PJ_UNUSED_ARG(mime_type);
 	
-	emit new_im(QString::fromAscii(from->ptr,from->slen), 
-			QString::fromAscii(text->ptr,text->slen));
+    emit new_im(QString::fromLatin1(from->ptr,from->slen),
+            QString::fromLatin1(text->ptr,text->slen));
 }
 
 /** callback wrapper function called by pjsip
@@ -161,7 +161,7 @@ void PjCallback::on_call_state(pjsua_call_id call_id, pjsip_event *e) {
 	PJ_LOG(3,(THIS_FILE, "Call %d state=%.*s", call_id, 
 			(int)ci.state_text.slen, ci.state_text.ptr));
 
-	QString state_text = QString::fromAscii(ci.state_text.ptr,(int)ci.state_text.slen);
+    QString state_text = QString::fromLatin1(ci.state_text.ptr,(int)ci.state_text.slen);
 	emit setCallState(state_text);
 
 	switch(ci.state) {
@@ -206,7 +206,7 @@ void PjCallback::on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pj
 	PJ_LOG(3,(THIS_FILE, "Call %d state=%.*s", call_id, 
 			(int)ci.state_text.slen, ci.state_text.ptr));
 
-	QString state_text = QString::fromAscii(ci.state_text.ptr,(int)ci.state_text.slen);
+    QString state_text = QString::fromLatin1(ci.state_text.ptr,(int)ci.state_text.slen);
 	emit setCallState(state_text);
 
 	emit setCallState(state_text);
