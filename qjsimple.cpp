@@ -37,7 +37,7 @@ extern "C" {
 #define THIS_FILE "qjsimple.cpp"
 #define LOGPREFIX "QjSimple: "
 #define USER_AGENT "QjSimple"
-#define USER_AGENT_VERSION "0.6.6"
+#define USER_AGENT_VERSION "0.6.7rc"
 
 
 /* global callback/logger object */
