@@ -1,21 +1,94 @@
 Building QjSimple under Mac OS X
+================================
 (provided by Daniel-Constantin Mierla)
 
-So, first I installed qgit from macports with brought me 
-git4-mac tar ball and after 3 hours it got compiled and 
-installed in /opt/local/lib and qgit worked file 
-(after fixing it to compile, it was some include issue).
+Mac OS X version used is: 10.10.1 (Yosemite)
 
-Then I got QTcreator via QT SDK for Mac OS X 
-(http://www.qtsoftware.com/downloads) that installed 
-again in /usr/lib the qt libs. Since I compiled with 
-qt creator i think it uses those from /usr. I think the 
-safest is to say QT4 libs for Mac OS X.
+1) pjsip 1.x
+------------
 
-I am not yet familiar with the way mac packages itself. 
-The applications are in a directory ending in .app and having 
-a pretty standard structure. I saw some applications that 
-include everything in this directory, libs, a.s.0. so 
-practically are stand alone. I think qjsimple is not the case. 
+	- install macports to add the dependencies
+	- pjsip uses portaudio and libssl development files to support TLS and SRTP
+
+sudo port install portaudio
+sudo port install openssl
+
+	- pjsip - latest 1.x at the time of writing this guidelines was 1.16:
+
+wget http://www.pjsip.org/release/1.16/pjproject-1.16.tar.bz2
+
+tar xfvj pjproject-1.16.tar.bz2
+ln -s pjproject-1.16 pjproject
+cd pjproject-1.16
+./configure
+
+	- after configure add next lines to the file pjlib/include/pj/config_site.h:
+
+        #define PJSIP_HAS_TLS_TRANSPORT 1
+        #define PJ_HAS_IPV6 1
+        #define PJSIP_MAX_PKT_LEN 10000
+
+	- build using the commands
+
+make dep
+make
 
 
+Now PJSIP is build as static libraries, wich are used to link to by QjSimple
+
+2) QT Toolkit
+-------------
+
+	- install the Qt5 SDK (Community Edition) for Mac OS X 10.10:
+
+http://www.qt.io/download/
+
+3) QjSimple
+-----------
+
+	- open QjSimple project in QT Creator
+	- edit QjSimple.pro file and update the path for PjSIP include and library
+	  directories, if you made the symbolic link 'pjproject' to the
+	  'pkproject-1.16', then no change should be done.
+
+	* the parts that might need update are the CPU architecture (x86_64) and
+	  the version (14.0.0), you can see them by checking one of the libraries
+	  in pjproject directory, like:
+
+~# ls pjproject/pjlib/lib/
+
+libpj-i386-apple-darwin14.0.0.a
+
+or:
+
+libpj-x86_64-apple-darwin14.0.0.a
+
+	* it happened that the 'uname -a' shows CPU x86_64, but the 'uname -p'
+	  returned 'i386'. If the Mac OS X is configured for x86_64, in case
+	  you get errors compiling QjSimple, go to pjproject folder, edit
+	  config.guess, search for '-apple-darwin' and replace 'uname -p' with
+	  'uname -m', like:
+
+  echo `uname -m`-apple-darwin${UNAME_RELEASE}
+
+    * edit again QjSimple.pro, find the variable 'macx:LIBS' and update
+      the name of the PjSIP libraries to match i386 or x86_64 as they were
+      built in the pjproject directory. The default are the name of the libs
+      with i386, so change it to x86_64 if needed.
+
+4) QHttp in Qt5
+---------------
+
+QHttp was made obsolete and removed from Qt5, you have to install it as add-on
+via https://qt.gitorious.org/qt:
+
+  git clone https://gitorious.org/qt/qthttp.git
+  cd qthttp
+  qmake
+  make (or nmake or mingw32-make or whatever)
+  make install (nmake install, mingw32-make install, …)
+
+Generic notes (for reference, done in QjSimple):
+  - in the .pro file of the project, add QT += http
+  - un qmake on your project
+  - compile your project
